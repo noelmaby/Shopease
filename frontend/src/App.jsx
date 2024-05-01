@@ -12,7 +12,7 @@ import axios from 'axios';
 import {Toaster} from 'react-hot-toast'
 
 
-axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = 'https://shopeasebackend.vercel.app/';
 axios.defaults.withCredentials = true
 
 
