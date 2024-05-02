@@ -8,6 +8,7 @@ import Userdataadmin from '../src/pages/Adminpages/Userdata'
 import Addshopadmin from '../src/pages/Adminpages/Addshop'
 import Allshopadmin from '../src/pages/Adminpages/Allshop'
 import Deleteshopadmin from '../src/pages/Adminpages/Deleteshop'
+import Deletecomadmin from '../src/pages/Adminpages/comments'
 import axios from 'axios';
 import {Toaster} from 'react-hot-toast'
 
@@ -29,6 +30,7 @@ function App() {
         <Route path='/allshopadmin' element={<Allshopadmin/>} />
         <Route path='/deleteshopadmin' element={<Deleteshopadmin/>} />
         <Route path='/search-result' element={<SearchResultPage />} />
+        <Route path='/deletecom' element={<Deletecomadmin />} />
         
         
     </Routes>

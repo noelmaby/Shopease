@@ -2,10 +2,27 @@ import React,{useEffect,useState} from 'react'
 import axios from 'axios'
 import { useNavigate,Link } from 'react-router-dom'
 
+const comments = () => {
 
-const Userdata = () => {
+    const[shops,setShops]=useState([]);
+    const[comms,setComm]=useState([]);
 
-    
+    const getAllcomms= async () => {
+        try {
+            const { data } = await axios.get('/get-comm');
+            setComm(data.shop);
+            console.log(data.shop);
+            console.log(comms)
+        } catch (error) {
+            console.log(error);
+            toast.error('something went wrong');
+        }
+    }
+ 
+    useEffect(() => {
+      getAllcomms()
+  },[]);
+
     const [message,setMessage]=useState()
     const navigate = useNavigate();
 
@@ -20,38 +37,6 @@ const Userdata = () => {
       })
       .catch(err=>console.log(err))
   })
-
-  const[user,setUsers]=useState([]);
-
-  const getAllUsers = async () => {
-      try {
-          const { data } = await axios.get('/get-users');
-          setUsers(data.users);
-          console.log(data.users);
-          console.log(user)
-      } catch (error) {
-          console.log(error);
-          toast.error('something went wrong');
-      }
-  };
-
-  useEffect(() => {
-      getAllUsers()
-  },[]);
-
-  const deleteUser = async (userId) => {
-    try {
-      await axios.delete(`/deleteuser/${userId}`);
-      window.location.reload();
-      toast.success('User deleted successfully');
-      
-    } catch (error) {
-      console.error('Error deleting User:', error);
-      // Handle error
-    }
-  };
-
-
   return (
     <div>
   <div id="wrapper">
@@ -85,10 +70,10 @@ const Userdata = () => {
       </div>
       {/* Nav Item - Pages Collapse Menu */}
       <li className="nav-item">
-        <Link to='/userdatadmin'> <a className="nav-link collapsed text-decoration-none" >
+        <Link to='/userdatadmin'><a className="nav-link text-decoration-none"  >
           <i className="fas fa-fw fa-cog" />
           <span>Users Data</span>
-        </a></Link>        
+        </a>  </Link>        
       </li>
       
      
@@ -100,14 +85,14 @@ const Userdata = () => {
       </div>
       {/* Nav Item - Pages Collapse Menu */}
       <li className="nav-item">
-        <Link to='/addshopadmin'><a className="nav-link collapsed text-decoration-none">
+        <Link to='/addshopadmin'><a className="nav-link text-decoration-none" >
           <i className="fas fa-fw fa-folder" />
           <span>ADD Shop</span>
-        </a></Link>         
+        </a>  </Link>      
       </li>
       {/* Nav Item - Charts */}
       <li className="nav-item">
-        <Link to='/allshopadmin'> <a className="nav-link text-decoration-none" >
+        <Link  to='/allshopadmin'><a className="nav-link text-decoration-none" >
           <i className="fas fa-fw fa-chart-area" />
           <span>All Shops</span></a> </Link>
       </li>
@@ -115,12 +100,7 @@ const Userdata = () => {
       <li className="nav-item">
         <Link to='/deleteshopadmin'><a className="nav-link text-decoration-none" >
           <i className="fas fa-fw fa-table" />
-          <span>Delete Shop</span></a> </Link> 
-      </li>
-      <li className="nav-item">
-        <Link to='/deletecom'><a className="nav-link text-decoration-none" >
-          <i className="fas fa-fw fa-table" />
-          <span>Delete comment</span></a> </Link> 
+          <span>Delete Shop</span></a> </Link>
       </li>
       {/* Divider */}
       <hr className="sidebar-divider d-none d-md-block" />     
@@ -139,7 +119,7 @@ const Userdata = () => {
           </button>
           {/* Topbar Search */}
           <div className="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <h2>User Data</h2>
+            <h2>All Shop Data</h2>
           </div>
           {/* Topbar Navbar */}
           <ul className="navbar-nav ml-auto">
@@ -175,27 +155,44 @@ const Userdata = () => {
         </nav>
         {/* End of Topbar */}
         {/* Begin Page Content */}
-        <div className="row row-cols-1 row-cols-md-2 row-cols-lg-4 p-5">
-        {user?.map((p) => (
-    p.email === "admin@admin.com" ? null : (
-        <div key={p._id} className="col mb-4">
-            <div className="card h-100">                
-                <div className="card-body d-flex flex-column">
-                    <h5 className="card-title">{p.name}</h5>
-                    <h6 className="card-subtitle mb-2 text-muted">{p.email}</h6>                    
-                    <div className="mt-auto text-center">
-                        <button
-                            onClick={() => deleteUser(p._id)}
-                            className="btn btn-danger"
-                        >
-                            Delete User
-                        </button>                      
-                    </div>       
-                </div>
+        <div className="container-fluid testimonial py-5">
+  <div className="container py-5">
+  
+    <div className="testimonial-header text-center">
+      <h4 className="text-primary">Our Testimonial</h4>
+      <h1 className="display-5 mb-5 text-dark">Our Client Saying!</h1>
+      </div>
+      {comms?.map((p) => (
+     <div key={p._id} className="owl-carousel testimonial-carousel">
+      <div className="testimonial-item img-border-radius bg-light rounded p-4">
+        <div className="position-relative">
+          <i className="fa fa-quote-right fa-2x text-secondary position-absolute" style={{bottom: 30, right: 0}} />
+          <div className="mb-4 pb-4 border-bottom border-secondary">
+          
+          </div>
+          <div className="d-flex align-items-center flex-nowrap">
+            <div className="bg-secondary rounded">
+              <img src={`${axios.defaults.baseURL}/getcomphoto/${p._id}`} 
+              className="img-fluid rounded" style={{width: 100, height: 100}} alt />
             </div>
+            <div className="ms-4 d-block">
+              <h4 className="text-dark">{p.name} </h4>
+              <p className="m-0 pb-3">{p.description} </p>
+              <button
+              className="btn btn-danger">
+                            Delete comment
+            </button>
+             
+            </div>
+          </div>
         </div>
-    )
-))}
+      </div>
+    
+     </div>
+     ))}
+  
+  </div>
+
 </div>
         {/* /.container-fluid */}
       </div>
@@ -239,4 +236,4 @@ const Userdata = () => {
   )
 }
 
-export default Userdata
+export default comments
