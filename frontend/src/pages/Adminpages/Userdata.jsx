@@ -183,7 +183,7 @@ const Userdata = () => {
                             onClick={() => deleteUser(p._id)}
                             className="btn btn-danger"
                         >
-                            Delete Shop
+                            Delete User
                         </button>                      
                     </div>       
                 </div>

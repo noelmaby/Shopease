@@ -93,7 +93,7 @@ useEffect(() => {
                     
                     <div class="d-flex justify-content-between flex-lg-wrap">
                     <p id="shop-1-dis" class="text-dark fs-5 fw-bold mb-0">{p.price}</p>
-                    <a id="shop-1-dir" href="#" className="btn border border-secondary rounded-pill px-3 text-primary"><i className="fa fa-location-arrow me-2 text-primary"></i>Direction</a>
+                    <a id="shop-1-dir" href={p.slink} className="btn border border-secondary rounded-pill px-3 text-primary"><i className="fa fa-location-arrow me-2 text-primary"></i>Direction</a>
 
                    
                   </div>
