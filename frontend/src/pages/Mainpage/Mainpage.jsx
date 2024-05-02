@@ -187,9 +187,10 @@ const Mainpage = () => {
             <i className="fas fa-map-marked-alt fa-1x text-primary my-auto" />
             Enter Location
           </a>
-          <a onClick={handleSignOut} className="my-auto">
+         <Link to='/'><a 
+           className="my-auto">
             <button  className="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4" data-bs-toggle="modal" data-bs-target><i className="fas fa-user fa-1x text-primary" /></button>
-          </a>
+          </a></Link> 
         </div>
       </div>
     </nav>
